@@ -4,6 +4,7 @@ import PokeBackGround from '../assets/img/PokeBackGround.png'
 
 
 export const PokeList = ({ pokemons, todo, images, routePath }) => {
+    console.log('todo: ', todo)
     return (
         <div style={{
             height: '100vh',

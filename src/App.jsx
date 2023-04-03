@@ -23,13 +23,26 @@ const routePath = [
 
 function App() {
   const [todo, setTodo] = useState()
+  const [evolvData, setEvolvData] = useState()
   const url = 'https://pokeapi.co/api/v2/pokemon';
   const fetchApi = async () => {
     const response = await fetch(url)
     const responseJSON = await response.json()
-    const initialPokemons = responseJSON.results.filter(name => name.name === 'charmander' || name.name === 'squirtle'
-      || name.name === 'bulbasaur')
+    const pokeEvolv = responseJSON.results.filter(name =>
+      name.name === 'charmeleon' ||
+      name.name === 'charizard' ||
+      name.name === 'wartortle' ||
+      name.name === 'blastoise' ||
+      name.name === 'ivysaur' ||
+      name.name === 'venusaur'
+    )
+    const initialPokemons = responseJSON.results.filter(name =>
+      name.name === 'charmander' ||
+      name.name === 'squirtle' ||
+      name.name === 'bulbasaur'
+    )
     setTodo(initialPokemons)
+    setEvolvData(pokeEvolv)
   }
   useEffect(() => {
     fetchApi()
@@ -46,9 +59,9 @@ function App() {
                 <Route path={'/'} element={<PokeList todo={todo} images={images} pokemons={pokemons} routePath={routePath} />} />
               ) : (
                 'Loading...'
-            )
+              )
             }
-            <Route path={'/Charmander'} element={<Charmander todo={todo} />} />
+            <Route path={'/Charmander'} element={<Charmander todo={todo} evolvData={evolvData}/>} />
             <Route path={'/Bulbasaur'} element={<Bulbasaur todo={todo} />} />
             <Route path={'/Squirtle'} element={<Squirtle todo={todo} />} />
           </Routes>

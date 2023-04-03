@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import './Charmander.css'
 import charmander from '../../assets/img/charmander.gif'
+import charmeleon from '../../assets/img/charmeleon.gif'
+import charizard from '../../assets/img/charizard.gif'
 import PokeBackGround from '../../assets/img/PokeBackGround.png'
 import { Link } from 'react-router-dom'
 
-export const Charmander = ({ todo }) => {
+export const Charmander = ({ todo, evolvData }) => {
 
     const [takeCharmander, setTakeCharmander] = useState(null)
+    const [showEvolution, setShowEvolution] = useState('charmander')
     const [statsList, setStatsList] = useState({
         hp: 0,
         attack: 0,
@@ -16,7 +19,12 @@ export const Charmander = ({ todo }) => {
         speed: 0
     })
 
+   
+
     let urlCharmander = todo?.find((name) => name?.name === 'charmander')
+    let urlCharmeleon = evolvData?.find((name) => name?.name === 'charmeleon')
+    let urlCharizard = evolvData?.find((name) => name?.name === 'charizard')
+    
     const fetchApi = async () => {
         try {
             const response = await fetch(urlCharmander?.url)
@@ -25,6 +33,29 @@ export const Charmander = ({ todo }) => {
         } catch (error) {
             console.log('error: ', error)
         }
+    }
+    //Fetch para evolucionar Charmander
+    const fetchApiEvolve = async (url) => {
+        try {
+            const response = await fetch(url)
+            const responseJSON = await response.json()
+            setTakeCharmander(responseJSON)
+        } catch (error) {
+            console.log('error: ', error)
+        }
+    }
+    const handleEvolve = () => {
+        fetchApiEvolve(urlCharmeleon.url)
+        setShowEvolution('charmeleon')
+    }
+
+    const handleInvolution = () => {
+        fetchApiEvolve(urlCharmander.url)
+        setShowEvolution('charmander')
+    }
+    const handleCharizard = () => {
+        fetchApiEvolve(urlCharizard.url)
+        setShowEvolution('charizard')
     }
 
     useEffect(() => {
@@ -108,49 +139,62 @@ export const Charmander = ({ todo }) => {
                     <h2>Charmander</h2>
                     <p>The Lizard Pokémon</p>
                     <div className="poke-image">
-                        <img src={charmander} alt="Charmander" />
+                        {
+                            showEvolution === 'charmander' && <img src={charmander} alt="Charmander" />
+                            
+                        }
+                        {
+                            showEvolution === 'charmeleon' && <img src={charmeleon} alt="charmeleon" />
+                        }
+                        {
+                            showEvolution === 'charizard' && <img src={charizard} alt="charizard" />
+                        }
+                        
                     </div>
+                    <button onClick={() => handleInvolution()}>Charmander</button>
+                    <button onClick={() => handleEvolve()}>Charmeleon</button>
+                    <button onClick={() => handleCharizard()}>Charizard</button>
                 </div>
                 <div className="poke-stats">
                     <div className="stat-container">
                         <div className="stat-title">HP</div>
                         <div className="stat-bar">
-                            <div className="stat-bar-fill" style={{ width: '39%' }}></div>
+                            <div className="stat-bar-fill" style={{ width: `${statsList.hp}%` }}></div>
                         </div>
                         <div className="stat-value">{statsList.hp}</div>
                     </div>
                     <div className="stat-container">
                         <div className="stat-title">Attack</div>
                         <div className="stat-bar">
-                            <div className="stat-bar-fill" style={{ width: '60%' }}></div>
+                            <div className="stat-bar-fill" style={{ width: `${statsList.attack}%` }}></div>
                         </div>
                         <div className="stat-value">{statsList.attack}</div>
                     </div>
                     <div className="stat-container">
                         <div className="stat-title">Defense</div>
                         <div className="stat-bar">
-                            <div className="stat-bar-fill" style={{ width: '50%' }}></div>
+                            <div className="stat-bar-fill" style={{ width: `${statsList.defense}%` }}></div>
                         </div>
                         <div className="stat-value">{statsList.defense}</div>
                     </div>
                     <div className="stat-container">
                         <div className="stat-title">Sp. Atk</div>
                         <div className="stat-bar">
-                            <div className="stat-bar-fill" style={{ width: '70%' }}></div>
+                            <div className="stat-bar-fill" style={{ width: `${statsList.specialAttack}%` }}></div>
                         </div>
                         <div className="stat-value">{statsList.specialAttack}</div>
                     </div>
                     <div className="stat-container">
                         <div className="stat-title">Sp. Def</div>
                         <div className="stat-bar">
-                            <div className="stat-bar-fill" style={{ width: '60%' }}></div>
+                            <div className="stat-bar-fill" style={{ width: `${statsList.specialDefense}%` }}></div>
                         </div>
                         <div className="stat-value">{statsList.specialDefense}</div>
                     </div>
                     <div className="stat-container">
                         <div className="stat-title">Speed</div>
                         <div className="stat-bar">
-                            <div className="stat-bar-fill" style={{ width: '80%' }}></div>
+                            <div className="stat-bar-fill" style={{ width: `${statsList.speed}%` }}></div>
                         </div>
                         <div className="stat-value">{statsList.speed}</div>
                     </div>
