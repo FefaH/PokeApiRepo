@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import './Charmander.css'
+import './Poke.css'
 import charmander from '../../assets/img/charmander.gif'
 import charmeleon from '../../assets/img/charmeleon.gif'
 import charizard from '../../assets/img/charizard.gif'
 import PokeBackGround from '../../assets/img/PokeBackGround.png'
 import { Link } from 'react-router-dom'
+import firedna from '../../assets/img/firedna.png'
 
-export const Charmander = ({ todo, evolvData }) => {
+
+export const Charmander = ({ todo, evolvData, handleTakeData, handleConfirmPokemon }) => {
 
     const [takeCharmander, setTakeCharmander] = useState(null)
     const [showEvolution, setShowEvolution] = useState('charmander')
@@ -19,12 +21,10 @@ export const Charmander = ({ todo, evolvData }) => {
         speed: 0
     })
 
-   
-
     let urlCharmander = todo?.find((name) => name?.name === 'charmander')
     let urlCharmeleon = evolvData?.find((name) => name?.name === 'charmeleon')
     let urlCharizard = evolvData?.find((name) => name?.name === 'charizard')
-    
+
     const fetchApi = async () => {
         try {
             const response = await fetch(urlCharmander?.url)
@@ -57,6 +57,13 @@ export const Charmander = ({ todo, evolvData }) => {
         fetchApiEvolve(urlCharizard.url)
         setShowEvolution('charizard')
     }
+    const handlePokeSelect = () => {
+        let pokeSelectData = statsList
+        handleTakeData(pokeSelectData)
+        if(pokeSelectData){
+            handleConfirmPokemon(true)
+        }
+    }
 
     useEffect(() => {
         fetchApi()
@@ -70,7 +77,7 @@ export const Charmander = ({ todo, evolvData }) => {
                         setStatsList((prevStat) => ({
                             ...prevStat,
                             hp: stats?.base_stat
-                        }))
+                        }));
                         break;
                     case 'attack':
                         setStatsList((prevStat) => ({
@@ -135,13 +142,15 @@ export const Charmander = ({ todo, evolvData }) => {
                             <button>GoBack</button>
                         </Link>
                     </div>
-
+                    <div>
+                        <button onClick={handlePokeSelect} disabled={false} style={{color: 'red'}}>Select</button>
+                    </div>
                     <h2>Charmander</h2>
                     <p>The Lizard Pokémon</p>
                     <div className="poke-image">
                         {
                             showEvolution === 'charmander' && <img src={charmander} alt="Charmander" />
-                            
+
                         }
                         {
                             showEvolution === 'charmeleon' && <img src={charmeleon} alt="charmeleon" />
@@ -149,11 +158,16 @@ export const Charmander = ({ todo, evolvData }) => {
                         {
                             showEvolution === 'charizard' && <img src={charizard} alt="charizard" />
                         }
-                        
+
                     </div>
-                    <button onClick={() => handleInvolution()}>Charmander</button>
-                    <button onClick={() => handleEvolve()}>Charmeleon</button>
-                    <button onClick={() => handleCharizard()}>Charizard</button>
+                    <div style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                    }}>
+                        <img onClick={() => handleInvolution()} src={firedna} alt="" style={{ margin: '20px', cursor: 'pointer' }} />
+                        <img onClick={() => handleEvolve()} src={firedna} alt="" style={{ margin: '20px', cursor: 'pointer' }} />
+                        <img onClick={() => handleCharizard()} src={firedna} alt="" style={{ margin: '20px', cursor: 'pointer' }} />
+                    </div>
                 </div>
                 <div className="poke-stats">
                     <div className="stat-container">

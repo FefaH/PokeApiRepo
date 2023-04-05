@@ -21,10 +21,29 @@ const routePath = [
   { id: 2, pokePath: '/Bulbasaur' },
 ]
 
+
+
 function App() {
   const [todo, setTodo] = useState()
   const [evolvData, setEvolvData] = useState()
+  const [confirmPokemon, setconfirmPokemon] = useState(false)
+  const [statsSelectPokemon, setStatsSelectPokemon] = useState({
+    hp: 0,
+    attack: 0,
+    defense: 0,
+    specialAttack: 0,
+    specialDefense: 0,
+    speed: 0
+  })
   const url = 'https://pokeapi.co/api/v2/pokemon';
+  const handleTakeData = ((data) => {
+    setStatsSelectPokemon(data)
+  })
+  const handleConfirmPokemon = ((data) => {
+    setconfirmPokemon(data)
+  })
+  console.log('confirmPokemon: ', confirmPokemon)
+
   const fetchApi = async () => {
     const response = await fetch(url)
     const responseJSON = await response.json()
@@ -51,8 +70,6 @@ function App() {
     <BrowserRouter>
       <div>
         <div>
-
-
           <Routes>
             {
               todo ? (
@@ -61,9 +78,9 @@ function App() {
                 'Loading...'
               )
             }
-            <Route path={'/Charmander'} element={<Charmander todo={todo} evolvData={evolvData}/>} />
-            <Route path={'/Bulbasaur'} element={<Bulbasaur todo={todo} />} />
-            <Route path={'/Squirtle'} element={<Squirtle todo={todo} />} />
+            <Route path={'/Charmander'} element={<Charmander todo={todo} evolvData={evolvData} handleTakeData={handleTakeData} handleConfirmPokemon={handleConfirmPokemon} />} />
+            <Route path={'/Bulbasaur'} element={<Bulbasaur todo={todo} evolvData={evolvData} />} />
+            <Route path={'/Squirtle'} element={<Squirtle todo={todo} evolvData={evolvData} />} />
           </Routes>
         </div>
       </div>
