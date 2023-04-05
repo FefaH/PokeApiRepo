@@ -7,7 +7,7 @@ import wartortle from '../../assets/img/wartortle.gif'
 import blastoise from '../../assets/img/blastoise.gif'
 import waterdna from '../../assets/img/waterdna.png'
 
-export const Squirtle = ({ todo, evolvData }) => {
+export const Squirtle = ({ todo, evolvData, handleTakeData, handleConfirmPokemon, confirmPokemon, handleTakeName }) => {
   const [takeSquirtle, setTakeSquirtle] = useState(null)
   const [showEvolution, setShowEvolution] = useState('squirtle')
   const [statsList, setStatsList] = useState({
@@ -18,7 +18,7 @@ export const Squirtle = ({ todo, evolvData }) => {
     specialDefense: 0,
     speed: 0
   })
-  
+
   let urlSquirtle = todo?.find((name) => name?.name === 'squirtle')
   let urlWartortle = evolvData?.find((name) => name?.name === 'wartortle')
   let urlBlastoise = evolvData?.find((name) => name?.name === 'blastoise')
@@ -57,10 +57,18 @@ export const Squirtle = ({ todo, evolvData }) => {
     fetchApiEvolve(urlBlastoise.url)
     setShowEvolution('blastoise')
   }
+  const handlePokeSelect = () => {
+    let pokeSelectData = statsList
+    handleTakeData(pokeSelectData)
+    if (pokeSelectData) {
+      handleConfirmPokemon(true)
+      handleTakeName(showEvolution)
+    }
+  }
   useEffect(() => {
     fetchApi()
   }, [])
-console.log('showEvolution: ', showEvolution)
+  console.log('showEvolution: ', showEvolution)
   useEffect(() => {
     if (takeSquirtle) {
       takeSquirtle?.stats?.forEach(stats => {
@@ -134,7 +142,14 @@ console.log('showEvolution: ', showEvolution)
               <button>GoBack</button>
             </Link>
           </div>
+          <div>
+            {
+              showEvolution === 'squirtle' ?
+                <button className={!confirmPokemon ? 'pokemon-button' : 'pokemon-button-disabled'} onClick={handlePokeSelect} disabled={confirmPokemon}>Select</button> :
+                <button className={'pokemon-button-disabled'} disabled={confirmPokemon}>Select</button>
+            }
 
+          </div>
           <h2>Squirtle</h2>
           <p>The Tiny Turtle Pokémon</p>
           <div className="poke-image">
@@ -152,9 +167,9 @@ console.log('showEvolution: ', showEvolution)
             display: 'flex',
             flexDirection: 'row',
           }}>
-            <img onClick={() => handleInvolution()} src={waterdna} alt="" style={{margin: '20px', cursor: 'pointer'}} />
-            <img onClick={() => handleEvolve()} src={waterdna} alt="" style={{margin: '20px', cursor: 'pointer'}} />
-            <img onClick={() => handleBlastoise()} src={waterdna} alt="" style={{margin: '20px', cursor: 'pointer'}} />
+            <img onClick={() => handleInvolution()} src={waterdna} alt="" style={{ margin: '20px', cursor: 'pointer' }} />
+            <img onClick={() => handleEvolve()} src={waterdna} alt="" style={{ margin: '20px', cursor: 'pointer' }} />
+            <img onClick={() => handleBlastoise()} src={waterdna} alt="" style={{ margin: '20px', cursor: 'pointer' }} />
           </div>
         </div>
         <div className="poke-stats">

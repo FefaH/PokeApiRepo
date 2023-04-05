@@ -7,8 +7,7 @@ import PokeBackGround from '../../assets/img/PokeBackGround.png'
 import { Link } from 'react-router-dom'
 import firedna from '../../assets/img/firedna.png'
 
-
-export const Charmander = ({ todo, evolvData, handleTakeData, handleConfirmPokemon }) => {
+export const Charmander = ({ todo, evolvData, handleTakeData, handleConfirmPokemon, confirmPokemon, handleTakeName }) => {
 
     const [takeCharmander, setTakeCharmander] = useState(null)
     const [showEvolution, setShowEvolution] = useState('charmander')
@@ -62,6 +61,7 @@ export const Charmander = ({ todo, evolvData, handleTakeData, handleConfirmPokem
         handleTakeData(pokeSelectData)
         if(pokeSelectData){
             handleConfirmPokemon(true)
+            handleTakeName(showEvolution)
         }
     }
 
@@ -114,6 +114,7 @@ export const Charmander = ({ todo, evolvData, handleTakeData, handleConfirmPokem
         }
 
     }, [takeCharmander])
+    console.log('showEvolution: ', showEvolution)
 
     return (
         <div className="poke-container" style={{
@@ -143,7 +144,11 @@ export const Charmander = ({ todo, evolvData, handleTakeData, handleConfirmPokem
                         </Link>
                     </div>
                     <div>
-                        <button onClick={handlePokeSelect} disabled={false} style={{color: 'red'}}>Select</button>
+                        {
+                            showEvolution === 'charmander' ?
+                            <button className={!confirmPokemon ? 'pokemon-button' : 'pokemon-button-disabled'} onClick={handlePokeSelect} disabled={confirmPokemon}>Select</button> :
+                            <button className={'pokemon-button-disabled'} disabled={confirmPokemon}>Select</button>
+                        }
                     </div>
                     <h2>Charmander</h2>
                     <p>The Lizard Pokémon</p>

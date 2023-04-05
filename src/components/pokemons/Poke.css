@@ -91,3 +91,42 @@
     color: #ff3333;
     margin-top: 5px;
   }
+
+  .pokemon-button {
+    background-color: #FFCB05;
+    color: #000000;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .pokemon-button:hover {
+    background-color: #FFA200;
+    color: #ffffff;
+    box-shadow: 0 3px 6px rgba(255, 162, 0, 0.16), 0 3px 6px rgba(255, 162, 0, 0.23);
+  }
+  
+  .pokemon-button:focus {
+    outline: none;
+  }
+  
+  .pokemon-button:active {
+    transform: translateY(1px);
+  }
+
+  .pokemon-button-disabled {
+    background-color: gray;
+    color: #b5b5b5;
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+  
+  .pokemon-button-disabled:hover {
+    background-color: gray;
+    color: #b5b5b5;
+    cursor: not-allowed;
+  }

@@ -6,7 +6,7 @@ import ivysaur from '../../assets/img/ivysaur.gif'
 import venusaur from '../../assets/img/venusaur.gif'
 import leafdna from '../../assets/img/leafdna.png'
 
-export const Bulbasaur = ({ todo, evolvData }) => {
+export const Bulbasaur = ({ todo, evolvData, handleTakeData, handleConfirmPokemon, confirmPokemon, handleTakeName }) => {
   const [takeBulbasaur, setTakeBulbasaur] = useState(null)
   const [showEvolution, setShowEvolution] = useState('bulbasaur')
   const [statsList, setStatsList] = useState({
@@ -54,6 +54,14 @@ export const Bulbasaur = ({ todo, evolvData }) => {
   const handleBlastoise = () => {
     fetchApiEvolve(urlVenusaur.url)
     setShowEvolution('venusaur')
+  }
+  const handlePokeSelect = () => {
+    let pokeSelectData = statsList
+    handleTakeData(pokeSelectData)
+    if (pokeSelectData) {
+      handleConfirmPokemon(true)
+      handleTakeName(showEvolution)
+    }
   }
   useEffect(() => {
     fetchApi()
@@ -130,7 +138,14 @@ export const Bulbasaur = ({ todo, evolvData }) => {
               <button>GoBack</button>
             </Link>
           </div>
+          <div>
+            {
+              showEvolution === 'bulbasaur' ?
+                <button className={!confirmPokemon ? 'pokemon-button' : 'pokemon-button-disabled'} onClick={handlePokeSelect} disabled={confirmPokemon}>Select</button> :
+                <button className={'pokemon-button-disabled'} disabled={confirmPokemon}>Select</button>
+            }
 
+          </div>
           <h2>Bulbasaur</h2>
           <p>The Seed Pokémon</p>
           <div className="poke-image">

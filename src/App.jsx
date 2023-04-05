@@ -27,6 +27,7 @@ function App() {
   const [todo, setTodo] = useState()
   const [evolvData, setEvolvData] = useState()
   const [confirmPokemon, setconfirmPokemon] = useState(false)
+  const [confirmPokemonName, setConfirmPokemonName] = useState('')
   const [statsSelectPokemon, setStatsSelectPokemon] = useState({
     hp: 0,
     attack: 0,
@@ -39,10 +40,12 @@ function App() {
   const handleTakeData = ((data) => {
     setStatsSelectPokemon(data)
   })
+  const handleTakeName = ((data) => {
+    setConfirmPokemonName(data)
+  })
   const handleConfirmPokemon = ((data) => {
     setconfirmPokemon(data)
   })
-  console.log('confirmPokemon: ', confirmPokemon)
 
   const fetchApi = async () => {
     const response = await fetch(url)
@@ -73,14 +76,14 @@ function App() {
           <Routes>
             {
               todo ? (
-                <Route path={'/'} element={<PokeList todo={todo} images={images} pokemons={pokemons} routePath={routePath} />} />
+                <Route path={'/'} element={<PokeList todo={todo} images={images} pokemons={pokemons} routePath={routePath} confirmPokemon={confirmPokemon} confirmPokemonName={confirmPokemonName}/>} />
               ) : (
                 'Loading...'
               )
             }
-            <Route path={'/Charmander'} element={<Charmander todo={todo} evolvData={evolvData} handleTakeData={handleTakeData} handleConfirmPokemon={handleConfirmPokemon} />} />
-            <Route path={'/Bulbasaur'} element={<Bulbasaur todo={todo} evolvData={evolvData} />} />
-            <Route path={'/Squirtle'} element={<Squirtle todo={todo} evolvData={evolvData} />} />
+            <Route path={'/Charmander'} element={<Charmander todo={todo} evolvData={evolvData} handleTakeData={handleTakeData} handleTakeName={handleTakeName} handleConfirmPokemon={handleConfirmPokemon} confirmPokemon={confirmPokemon} />} />
+            <Route path={'/Bulbasaur'} element={<Bulbasaur todo={todo} evolvData={evolvData} handleTakeData={handleTakeData} handleTakeName={handleTakeName} handleConfirmPokemon={handleConfirmPokemon} confirmPokemon={confirmPokemon}/>} />
+            <Route path={'/Squirtle'} element={<Squirtle todo={todo} evolvData={evolvData} handleTakeData={handleTakeData} handleTakeName={handleTakeName} handleConfirmPokemon={handleConfirmPokemon} confirmPokemon={confirmPokemon}/>} />
           </Routes>
         </div>
       </div>

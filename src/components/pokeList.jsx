@@ -1,9 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import PokeBackGround from '../assets/img/PokeBackGround.png'
+import pokeball from '../assets/img/pokeball.png'
 
 
-export const PokeList = ({ pokemons, todo, images, routePath }) => {
+
+export const PokeList = ({ pokemons, todo, images, routePath, confirmPokemon, confirmPokemonName }) => {
+    
+    console.log('confirmPokemon: ', confirmPokemon)
+    console.log('confirmPokemonName: ', confirmPokemonName)
     console.log('todo: ', todo)
     return (
         <div style={{
@@ -19,10 +24,10 @@ export const PokeList = ({ pokemons, todo, images, routePath }) => {
             flexDirection: 'column',
             backgroundImage: `url(${PokeBackGround})`,
             backgroundSize: 'cover',
-           
-            }}>
 
-            <div style={{  marginBottom: '10%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+        }}>
+
+            <div style={{ marginBottom: '10%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
                 <h1>Selecciona tu Pokemon inicial</h1>
                 <ul>
                     {
@@ -35,6 +40,10 @@ export const PokeList = ({ pokemons, todo, images, routePath }) => {
                                     <Link to={pokePathIndex?.pokePath}>
                                         <button>{poke?.name}</button>
                                     </Link>
+                                    {
+                                        poke?.name === confirmPokemonName && 
+                                        <img src={pokeball}/>
+                                    }
                                 </li>
                             </div>
                         })
