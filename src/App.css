@@ -104,3 +104,51 @@ body {
 .pokemon-value {
   margin: 0;
 }
+
+.dialog-box {
+  position: relative;
+  width: 480px;
+  height: 160px;
+  background-color: #fff;
+  border: 1px solid #000;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.dialog-box-content {
+  padding: 20px;
+  font-size: 20px;
+  line-height: 1.2;
+  text-align: center;
+  color: #000000;
+}
+
+.dialog-box-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  background-color: #f1f1f1;
+}
+
+.dialog-box-action {
+  margin: 0 10px;
+  padding: 10px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #f00;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.dialog-box-action:hover {
+  background-color: #c00;
+}
+
+.dialog-box-action:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

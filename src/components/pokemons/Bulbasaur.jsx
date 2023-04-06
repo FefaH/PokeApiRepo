@@ -144,7 +144,6 @@ export const Bulbasaur = ({ todo, evolvData, handleTakeData, handleConfirmPokemo
                 <button className={!confirmPokemon ? 'pokemon-button' : 'pokemon-button-disabled'} onClick={handlePokeSelect} disabled={confirmPokemon}>Select</button> :
                 <button className={'pokemon-button-disabled'} disabled={confirmPokemon}>Select</button>
             }
-
           </div>
           <h2>Bulbasaur</h2>
           <p>The Seed Pokémon</p>
@@ -163,9 +162,9 @@ export const Bulbasaur = ({ todo, evolvData, handleTakeData, handleConfirmPokemo
             display: 'flex',
             flexDirection: 'row',
           }}>
-            <img onClick={() => handleInvolution()} src={leafdna} alt="" style={{margin: '20px', cursor: 'pointer'}} />
-            <img onClick={() => handleEvolve()} src={leafdna} alt="" style={{margin: '20px', cursor: 'pointer'}} />
-            <img onClick={() => handleBlastoise()} src={leafdna} alt="" style={{margin: '20px', cursor: 'pointer'}} />
+            <img onClick={() => handleInvolution()} src={leafdna} alt="" style={{ margin: '20px', cursor: 'pointer' }} />
+            <img onClick={() => handleEvolve()} src={leafdna} alt="" style={{ margin: '20px', cursor: 'pointer' }} />
+            <img onClick={() => handleBlastoise()} src={leafdna} alt="" style={{ margin: '20px', cursor: 'pointer' }} />
           </div>
 
         </div>

@@ -1,15 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import PokeBackGround from '../assets/img/PokeBackGround.png'
 import pokeball from '../assets/img/pokeball.png'
 
 
 
-export const PokeList = ({ pokemons, todo, images, routePath, confirmPokemon, confirmPokemonName }) => {
-    
-    console.log('confirmPokemon: ', confirmPokemon)
+export const PokeList = ({ pokemons, todo, images, routePath, confirmPokemonName, handleConfirmPokemon, test }) => {
+    const [pokeRelease, setPokeRelease] = useState(confirmPokemonName)
+    const handlePokeRelease = () => {
+        setPokeRelease('')
+        handleConfirmPokemon(false)
+        test('')
+    }
+    console.log('pokeRelease: ', pokeRelease)
     console.log('confirmPokemonName: ', confirmPokemonName)
-    console.log('todo: ', todo)
+
     return (
         <div style={{
             height: '100vh',
@@ -41,13 +46,32 @@ export const PokeList = ({ pokemons, todo, images, routePath, confirmPokemon, co
                                         <button>{poke?.name}</button>
                                     </Link>
                                     {
-                                        poke?.name === confirmPokemonName && 
-                                        <img src={pokeball}/>
+                                        poke?.name === pokeRelease &&
+                                        <div style={{ marginLeft: '20px' }}>
+                                            <img src={pokeball} onClick={handlePokeRelease}/>
+                                        </div>
                                     }
                                 </li>
                             </div>
                         })
                     }
+                    {
+                        pokeRelease &&
+                        <>
+                            <div class="dialog-box">
+                                <div class="dialog-box-content">
+                                    <p>Hello, trainer! How can I assist you?</p>
+                                </div>
+                                <div class="dialog-box-actions">
+                                    <button class="dialog-box-action">Fight</button>
+                                    <button class="dialog-box-action">Bag</button>
+                                    <button class="dialog-box-action">Pokémon</button>
+                                    <button class="dialog-box-action">Run</button>
+                                </div>
+                            </div>
+                        </>
+                    }
+
                 </ul>
             </div>
         </div>

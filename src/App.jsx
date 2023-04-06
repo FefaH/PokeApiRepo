@@ -36,6 +36,9 @@ function App() {
     specialDefense: 0,
     speed: 0
   })
+  const test = ((data) => {
+    setConfirmPokemonName(data)
+  })
   const url = 'https://pokeapi.co/api/v2/pokemon';
   const handleTakeData = ((data) => {
     setStatsSelectPokemon(data)
@@ -66,6 +69,9 @@ function App() {
     setTodo(initialPokemons)
     setEvolvData(pokeEvolv)
   }
+
+  console.log('eteconfirmPokemonName: ', confirmPokemonName)
+
   useEffect(() => {
     fetchApi()
   }, [])
@@ -76,14 +82,59 @@ function App() {
           <Routes>
             {
               todo ? (
-                <Route path={'/'} element={<PokeList todo={todo} images={images} pokemons={pokemons} routePath={routePath} confirmPokemon={confirmPokemon} confirmPokemonName={confirmPokemonName}/>} />
+                <Route
+                  path={'/'}
+                  element={
+                    <PokeList
+                      todo={todo}
+                      images={images}
+                      pokemons={pokemons}
+                      routePath={routePath}
+                      confirmPokemonName={confirmPokemonName}
+                      handleConfirmPokemon={handleConfirmPokemon}
+                      test={test}
+                    />}
+                />
               ) : (
                 'Loading...'
               )
             }
-            <Route path={'/Charmander'} element={<Charmander todo={todo} evolvData={evolvData} handleTakeData={handleTakeData} handleTakeName={handleTakeName} handleConfirmPokemon={handleConfirmPokemon} confirmPokemon={confirmPokemon} />} />
-            <Route path={'/Bulbasaur'} element={<Bulbasaur todo={todo} evolvData={evolvData} handleTakeData={handleTakeData} handleTakeName={handleTakeName} handleConfirmPokemon={handleConfirmPokemon} confirmPokemon={confirmPokemon}/>} />
-            <Route path={'/Squirtle'} element={<Squirtle todo={todo} evolvData={evolvData} handleTakeData={handleTakeData} handleTakeName={handleTakeName} handleConfirmPokemon={handleConfirmPokemon} confirmPokemon={confirmPokemon}/>} />
+            <Route
+              path={'/Charmander'}
+              element={
+                <Charmander
+                  todo={todo}
+                  evolvData={evolvData}
+                  handleTakeData={handleTakeData}
+                  handleTakeName={handleTakeName}
+                  handleConfirmPokemon={handleConfirmPokemon}
+                  confirmPokemon={confirmPokemon}
+                />}
+            />
+            <Route
+              path={'/Bulbasaur'}
+              element={
+                <Bulbasaur
+                  todo={todo}
+                  evolvData={evolvData}
+                  handleTakeData={handleTakeData}
+                  handleTakeName={handleTakeName}
+                  handleConfirmPokemon={handleConfirmPokemon}
+                  confirmPokemon={confirmPokemon}
+                />}
+            />
+            <Route
+              path={'/Squirtle'}
+              element={
+                <Squirtle
+                  todo={todo}
+                  evolvData={evolvData}
+                  handleTakeData={handleTakeData}
+                  handleTakeName={handleTakeName}
+                  handleConfirmPokemon={handleConfirmPokemon}
+                  confirmPokemon={confirmPokemon}
+                />}
+            />
           </Routes>
         </div>
       </div>
