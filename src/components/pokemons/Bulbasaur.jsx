@@ -6,7 +6,7 @@ import ivysaur from '../../assets/img/ivysaur.gif'
 import venusaur from '../../assets/img/venusaur.gif'
 import leafdna from '../../assets/img/leafdna.png'
 
-export const Bulbasaur = ({ todo, evolvData, handleTakeData, handleConfirmPokemon, confirmPokemon, handleTakeName }) => {
+export const Bulbasaur = ({ todoInitial, evolvData, handleTakeData, handleConfirmPokemon, confirmPokemon, handleTakeName }) => {
   const [takeBulbasaur, setTakeBulbasaur] = useState(null)
   const [showEvolution, setShowEvolution] = useState('bulbasaur')
   const [statsList, setStatsList] = useState({
@@ -18,7 +18,7 @@ export const Bulbasaur = ({ todo, evolvData, handleTakeData, handleConfirmPokemo
     speed: 0
   })
 
-  let urlBulbasaur = todo?.find((name) => name?.name === 'bulbasaur')
+  let urlBulbasaur = todoInitial?.find((name) => name?.name === 'bulbasaur')
   let urlIvysaur = evolvData?.find((name) => name?.name === 'ivysaur')
   let urlVenusaur = evolvData?.find((name) => name?.name === 'venusaur')
   const fetchApi = async () => {

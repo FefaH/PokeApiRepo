@@ -7,7 +7,7 @@ import PokeBackGround from '../../assets/img/PokeBackGround.png'
 import { Link } from 'react-router-dom'
 import firedna from '../../assets/img/firedna.png'
 
-export const Charmander = ({ todo, evolvData, handleTakeData, handleConfirmPokemon, confirmPokemon, handleTakeName }) => {
+export const Charmander = ({ todoInitial, evolvData, handleTakeData, handleConfirmPokemon, confirmPokemon, handleTakeName }) => {
 
     const [takeCharmander, setTakeCharmander] = useState(null)
     const [showEvolution, setShowEvolution] = useState('charmander')
@@ -20,7 +20,7 @@ export const Charmander = ({ todo, evolvData, handleTakeData, handleConfirmPokem
         speed: 0
     })
 
-    let urlCharmander = todo?.find((name) => name?.name === 'charmander')
+    let urlCharmander = todoInitial?.find((name) => name?.name === 'charmander')
     let urlCharmeleon = evolvData?.find((name) => name?.name === 'charmeleon')
     let urlCharizard = evolvData?.find((name) => name?.name === 'charizard')
 

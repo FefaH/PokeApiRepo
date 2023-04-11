@@ -12,6 +12,7 @@ import { PokeList } from './components/pokeList'
 import { Charmander } from './components/pokemons/Charmander'
 import { Bulbasaur } from './components/pokemons/Bulbasaur'
 import { Squirtle } from './components/pokemons/Squirtle'
+import { Pokedex } from './components/pokedex/Pokedex'
 
 const pokemons = ['charmander', 'squirtle', 'bulbasaur']
 const images = [charmander, squirtle, bulbasaur]
@@ -19,12 +20,14 @@ const routePath = [
   { id: 0, pokePath: '/Charmander' },
   { id: 1, pokePath: '/Squirtle' },
   { id: 2, pokePath: '/Bulbasaur' },
+  { id: 3, pokePath: '/Pokedex' },
 ]
 
 
 
 function App() {
-  const [todo, setTodo] = useState()
+  const [todoInitial, setTodoInitial] = useState()
+  const [todoPokemons, setTodoPokemons] = useState()
   const [evolvData, setEvolvData] = useState()
   const [confirmPokemon, setconfirmPokemon] = useState(false)
   const [confirmPokemonName, setConfirmPokemonName] = useState('')
@@ -39,7 +42,8 @@ function App() {
   const test = ((data) => {
     setConfirmPokemonName(data)
   })
-  const url = 'https://pokeapi.co/api/v2/pokemon';
+  const urlInitial = 'https://pokeapi.co/api/v2/pokemon';
+  const urlTodoPokemons = 'https://pokeapi.co/api/v2/pokemon?limit=151&offset=0'
   const handleTakeData = ((data) => {
     setStatsSelectPokemon(data)
   })
@@ -51,8 +55,10 @@ function App() {
   })
 
   const fetchApi = async () => {
-    const response = await fetch(url)
+    const response = await fetch(urlInitial)
+    const responseAll = await fetch(urlTodoPokemons)
     const responseJSON = await response.json()
+    const responseAllJSON = await responseAll.json()
     const pokeEvolv = responseJSON.results.filter(name =>
       name.name === 'charmeleon' ||
       name.name === 'charizard' ||
@@ -66,8 +72,9 @@ function App() {
       name.name === 'squirtle' ||
       name.name === 'bulbasaur'
     )
-    setTodo(initialPokemons)
+    setTodoInitial(initialPokemons)
     setEvolvData(pokeEvolv)
+    setTodoPokemons(responseAllJSON)
   }
 
   console.log('eteconfirmPokemonName: ', confirmPokemonName)
@@ -81,12 +88,12 @@ function App() {
         <div>
           <Routes>
             {
-              todo ? (
+              todoInitial ? (
                 <Route
                   path={'/'}
                   element={
                     <PokeList
-                      todo={todo}
+                    todoInitial={todoInitial}
                       images={images}
                       pokemons={pokemons}
                       routePath={routePath}
@@ -103,7 +110,7 @@ function App() {
               path={'/Charmander'}
               element={
                 <Charmander
-                  todo={todo}
+                todoInitial={todoInitial}
                   evolvData={evolvData}
                   handleTakeData={handleTakeData}
                   handleTakeName={handleTakeName}
@@ -115,7 +122,7 @@ function App() {
               path={'/Bulbasaur'}
               element={
                 <Bulbasaur
-                  todo={todo}
+                todoInitial={todoInitial}
                   evolvData={evolvData}
                   handleTakeData={handleTakeData}
                   handleTakeName={handleTakeName}
@@ -127,13 +134,20 @@ function App() {
               path={'/Squirtle'}
               element={
                 <Squirtle
-                  todo={todo}
+                todoInitial={todoInitial}
                   evolvData={evolvData}
                   handleTakeData={handleTakeData}
                   handleTakeName={handleTakeName}
                   handleConfirmPokemon={handleConfirmPokemon}
                   confirmPokemon={confirmPokemon}
                 />}
+            />
+            <Route
+            path={'/Pokedex'}
+            element={
+              <Pokedex todoPokemons={todoPokemons}/>
+            }
+            
             />
           </Routes>
         </div>

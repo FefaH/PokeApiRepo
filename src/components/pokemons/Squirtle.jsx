@@ -7,7 +7,7 @@ import wartortle from '../../assets/img/wartortle.gif'
 import blastoise from '../../assets/img/blastoise.gif'
 import waterdna from '../../assets/img/waterdna.png'
 
-export const Squirtle = ({ todo, evolvData, handleTakeData, handleConfirmPokemon, confirmPokemon, handleTakeName }) => {
+export const Squirtle = ({ todoInitial, evolvData, handleTakeData, handleConfirmPokemon, confirmPokemon, handleTakeName }) => {
   const [takeSquirtle, setTakeSquirtle] = useState(null)
   const [showEvolution, setShowEvolution] = useState('squirtle')
   const [statsList, setStatsList] = useState({
@@ -19,7 +19,7 @@ export const Squirtle = ({ todo, evolvData, handleTakeData, handleConfirmPokemon
     speed: 0
   })
 
-  let urlSquirtle = todo?.find((name) => name?.name === 'squirtle')
+  let urlSquirtle = todoInitial?.find((name) => name?.name === 'squirtle')
   let urlWartortle = evolvData?.find((name) => name?.name === 'wartortle')
   let urlBlastoise = evolvData?.find((name) => name?.name === 'blastoise')
 
