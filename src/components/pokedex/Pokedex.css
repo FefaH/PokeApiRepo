@@ -1,6 +1,6 @@
 .pokedex {
     position: relative;
-    width: 260px;
+    width: 300px;
     height: 390px;
     margin: 50px auto;
     background: #7f8c8d;
@@ -31,17 +31,6 @@
     background: #000;
     border-radius: 50%;
     z-index: -1;
-  }
-  
-  .screen:after {
-    content: '';
-    position: absolute;
-    top: 20%;
-    left: 20%;
-    width: 20%;
-    height: 20%;
-    background: #fff;
-    border-radius: 50%;
   }
   
   .pokemon-image {
@@ -82,4 +71,9 @@
     font-size: 18px;
     text-transform: capitalize;
     letter-spacing: 1px;
+  }
+
+  .autocompleteContent {
+    display: flex;
+    margin-top: 15px;
   }

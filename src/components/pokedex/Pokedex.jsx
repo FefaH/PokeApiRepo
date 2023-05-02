@@ -1,14 +1,41 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import PokeBackGround from '../../assets/img/PokeBackGround.png'
 import './Pokedex.css'
 import { Autocomplete, TextField } from '@mui/material'
-
-const top100Films = [
-    { label: 'The Shawshank Redemption', year: 1994 },
-]
+import { Link } from 'react-router-dom'
 
 export const Pokedex = (todoPokemons) => {
-    console.log('todoPokemons: ', todoPokemons)
+    const [takeName, setTakeName] = useState('Pikachu')
+    const [takeType, setTakeType] = useState('Electric')
+    const [takeImg, setTakeImg] = useState('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png')
+    const [todo, setTodo] = useState(null)
+
+    const pokemonList = todoPokemons.todoPokemons.results.map((data) => {
+        return {
+            label: data.name,
+            url: data.url,
+        }
+    })
+
+    const fetchApi = async (url) => {
+        try {
+            const response = await fetch(url)
+            const responseJSON = await response.json()
+            const pokeTypes = responseJSON.types.map(item => item.type.name)
+            const pokeImg = responseJSON.sprites.front_default
+            setTakeImg(pokeImg)
+            setTakeType(pokeTypes.join(' - '))
+            setTodo(responseJSON)
+        } catch (error) {
+            console.log('error: ', error)
+        }
+    }
+
+    const handleOnChange = (e, pokeSelect) => {
+        setTakeName(pokeSelect.label)
+        fetchApi(pokeSelect.url)
+
+    }
 
     return (
         <div style={{
@@ -26,27 +53,40 @@ export const Pokedex = (todoPokemons) => {
             backgroundSize: 'cover',
 
         }}>
-            <div class="pokedex">
-                <div class="screen">
-                    <div class="screen-content">
-                        <div class="pokemon-image">
-                            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png" alt="Pikachu" />
+            <div style={{
+                position: 'absolute',
+                top: '10px',
+                left: '10px',
+            }}>
+                <Link to='/'>
+                    <button>GoBack</button>
+                </Link>
+            </div>
+            <div className="pokedex">
+                <div className="screen">
+                    <div className="screen-content">
+                        <div className="pokemon-image">
+                            <img src={takeImg} alt="Pokemon" />
                         </div>
-                        <div class="pokemon-info">
-                            <h2>Pikachu</h2>
-                            <p>Electric Type</p>
+                        <div className="pokemon-info">
+                            <h2>{takeName}</h2>
+                            <p>{takeType}</p>
                         </div>
 
                     </div>
-                    
+
 
                 </div>
-                <Autocomplete
+                <div className='autocompleteContent'>
+                    <Autocomplete
                         disablePortal
-                        options={top100Films}
-                        sx={{ width: 100 }}
+                        options={pokemonList}
+                        sx={{ width: 250 }}
                         renderInput={(params) => <TextField {...params} label='Poke' />}
+                        onChange={handleOnChange}
                     />
+                </div>
+
             </div>
         </div>
     )

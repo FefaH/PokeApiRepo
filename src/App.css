@@ -171,10 +171,8 @@ body {
   text-shadow: 1px 1px #000;
 }
 
-.pokeButtonSelect:hover {
-  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1TuLzS2Ww0VPvz_e_fwZjbHtVUBzDd7Xsfg&usqp=CAU");
-}
-
-.pokeButtonSelect:active {
-  background-image: url("https://i.imgur.com/YdUJYWG.png");
+.pokeButton {
+  width: 18vh;
+  display: flex;
+  justify-content: center;
 }

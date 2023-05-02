@@ -56,7 +56,7 @@ export const PokeList = ({ pokemons, todoInitial, images, routePath, confirmPoke
                                 <li key={index} style={{ listStyle: 'none', display: 'flex', alignItems: 'center' }}>
                                     <img style={{ width: '10%' }} src={[images[pokeIndex]]} alt="" />
                                     <Link to={pokePathIndex?.pokePath}>
-                                        <button className='pokeButtonSelect'>{capitalizeFirstLetter(poke?.name)}</button>
+                                        <button className='pokeButton'>{capitalizeFirstLetter(poke?.name)}</button>
                                     </Link>
                                     {
                                         poke?.name === pokeRelease &&
@@ -88,10 +88,10 @@ export const PokeList = ({ pokemons, todoInitial, images, routePath, confirmPoke
                             </div>
                         </>
                     }
-<Link to='/Pokedex'>
-<div>Pokedex</div>
-</Link>
-                    
+                    <Link to='/Pokedex'>
+                        <div>Pokedex</div>
+                    </Link>
+
 
                 </ul>
             </div>
